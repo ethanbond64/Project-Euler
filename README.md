@@ -1,6 +1,6 @@
 # Project-Euler
 
-![Progress Display]progress.PNG
+![Progress Display]https://github.com/ethanbond64/Project-Euler/edit/master/progress.PNG
 
 Project Euler Problems I have been working on since Oct. 2018
 
