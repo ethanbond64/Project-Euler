@@ -1,34 +1,58 @@
 import math
 def isAbundent(k):
     divs = [1]
-    for j in range(2,math.ceil(math.sqrt(k))):
+    s = math.sqrt(k)
+    if s % 1 == 0:
+        s = int(s + 1)
+    else:
+        s = int(math.ceil(s))
+    for j in range(2,s):
         if k % j == 0:
             divs.append(j)
             divs.append(int(k/j))
-    if sum(divs) > k:
+
+    # print(k,' Factors: ',set(divs))
+    if sum(set(divs)) > k:
         return True
     else:
         return False
+#
+# inputnum = int(input('Enter a number: '))
+# print(isAbundent(inputnum))
+#
+#
+
+
+
+
+
+
 
 abundents = [12]
 
 for g in range(13,28124):
     if isAbundent(g) == True:
+        print(g)
         abundents.append(g)
 
 print('Abundents found')
-print(abundents[:10])
+# print(abundents)
+diffs = []
+for k in range(len(abundents)-1):
+    diffs.append(abundents[k+1]-abundents[k])
+print(diffs)
+
 nums = []
 for n in range(1,28124):
     if n % 1000 == 0:
         print(n)
     good = True
-    for a in abundents:
+    for a in abundents[:int((len(abundents)/2)+1)]:
         if n != a:
-            if (n - a) in abundents:
-                good = False
+            if (n - a)/abs(n - a) == -1:
                 break
-            elif (n - a)/abs(n - a) == -1:
+            elif (n - a) in abundents:
+                good = False
                 break
     if good == True:
         nums.append(n)
