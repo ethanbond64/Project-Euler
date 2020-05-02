@@ -6,13 +6,6 @@ def pentafunction(x):
 
     return pentanum
 
-def subtFunction(n, d):
-    # n is the index of the smaller pentagonal number
-    # d is the difference d = m - n, where m is the larger pentagonal number
-
-    subt = (d * 3) * n + pentafunction(d)
-
-    return subt
 
 def backwardsPentfunction(pentanum):
 
@@ -20,11 +13,8 @@ def backwardsPentfunction(pentanum):
 
     return xx
 
-print(backwardsPentfunction(145))
 
-# checker = True
-# while checker == True:
-#     point = 2
-#     for dd in range(0, point):
-#         if backwardsPentfunction(subtFunction(point, dd)) % 1 == 0:
-#             print(subtFunction(point,dd))
+for i in range(100):
+    print(pentafunction(i))
+    if (backwardsPentfunction(pentafunction(i)) == i):
+        print(True)
