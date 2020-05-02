@@ -1,15 +1,15 @@
 #Use sieve to generate all primes less than 987654321
-import numpy as np
+# import numpy as np
 n = 987654321
 largeModified = int((n)**(.5))
-booleanlist = np.zeros(largeModified)
+booleanlist = []#np.zeros(largeModified)
 PrimeList = []
 PrimeFactors = []
 
 
 # creates list of boolean values for the sieve function
 for kk in range(0, largeModified):
-    booleanlist[kk] = True
+    booleanlist.append(True)
 
 booleanlist[0] = 0
 booleanlist[1] = 0
