@@ -1,5 +1,9 @@
 import csv
 
+NROWS = 80
+NCOLS = 80
+
+
 Matrix = []
 with open('E81matrix.txt','r') as matrrix:
     filereader = csv.reader(matrrix,delimiter=',')
@@ -10,70 +14,55 @@ with open('E81matrix.txt','r') as matrrix:
             newRow.append(int(ii))
 
         Matrix.append(newRow)
+# print(Matrix)
+trMat = []
+for r in Matrix:
+    trMat += r
+Matrix = trMat
+# print(Matrix)
+def toRow(idx):
+    return idx // (NROWS)
 
-#True if side, False if down
-def directionToGo(top3,mid2,bottom):
-    sideDecision = True
-    sideside = top3[1] + top3[2]
-    sidedown = top3[1] + mid2[1]
-    downside = mid2[0] + mid2[1]
-    downdown = mid2[0] + bottom
-    best = min([sideside,sidedown,downside,downdown])
-    if best == downside or best == downdown:
-        sideDecision = False
-    return sideDecision
+def toCol(idx):
+    return idx % (NCOLS)
 
-def edgeDirection(top2,mid2,bottom):
-    edgeDecision = True
-    sidedown = top2[1] + mid2[1]
-    downside = mid2[0] + mid2[1]
-    downdown = mid2[0] + bottom
-    best = min([sidedown,downside,downdown])
-    if best == downside or best == downdown:
-        edgeDecision = False
-    return edgeDecision
+# row and col are 0 indexed
+def toIdx(row,col):
+    return row*NROWS + col
 
-def bottomDirection(top3,mid2):
-    sideDecision = True
-    sideside = top3[1] + top3[2]
-    sidedown = top3[1] + mid2[1]
-    downside = mid2[0] + mid2[1]
+parentPointers = [None]*(NCOLS*NROWS)
+minPathWeights = [0]*(NCOLS*NROWS)
+for i in range(len(Matrix)):
+    r = toRow(i)
+    c = toCol(i)
 
-    best = min([sideside,sidedown,downside,downdown])
-    if best == downside or best == downdown:
-        sideDecision = False
-    return sideDecision
+    parentWeights = 0
 
-roww = 0
-coll = 0
-summ = 0
-while roww != 79 and coll != 79:
-    print(roww,coll)
-    val = Matrix[roww][coll]
-    summ += val
-    if roww < 78 and coll < 78:
-        if (directionToGo(Matrix[roww][coll:(coll+3)],Matrix[roww+1][coll:(coll+2)],Matrix[roww+2][coll])) == True:
-            coll += 1
+    if r == 0 and c == 0:
+        parentWeights = 0
+    elif r == 0:
+        parentWeights = minPathWeights[i-1]
+        parentPointers[i] = i-1
+
+    elif c == 0:
+        parentWeights = minPathWeights[i-NCOLS]
+        parentPointers[i] = i-NCOLS
+
+    else:
+        leftParent = minPathWeights[i-1]
+        upParent = minPathWeights[i-NCOLS]  
+        
+        if upParent < leftParent:
+            parentWeights = upParent
+            parentPointers[i] = i-NCOLS
         else:
-            roww += 1
-    elif roww == 78 and coll < 78:
-        if (bottomDirection(Matrix[roww][coll:(coll+3)],Matrix[roww+1][coll:(coll+2)])) == True:
-            coll += 1
-        else:
-            roww += 1
-    elif roww < 78 and coll == 78:
-        if (edgeDirection(Matrix[roww][coll:(coll+2)],Matrix[roww+1][coll:(coll+2)],Matrix[roww+2][coll])) == True:
-            coll += 1
-        else:
-            roww += 1
-    elif roww == 79 and coll != 79:
-        coll += 1
-    elif roww != 79 and coll == 79:
-        roww += 1
-    else: #roww == 78 and coll == 78
-        if Matrix[roww][coll+1] > Matrix[roww+1][coll]:
-            summ += Matrix[roww+1][coll] + Matrix[roww+1][coll+1]
-        else:
-            summ += Matrix[roww][coll+1] + Matrix[roww+1][coll+1]
-        break
-print(summ)
+            parentWeights = leftParent
+            parentPointers[i] = i-1
+
+    minPathWeights[i] = parentWeights+Matrix[i]
+
+print(minPathWeights[-1])
+# print(parentPointers)
+    
+
+    
