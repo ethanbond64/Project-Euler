@@ -1,0 +1,31 @@
+C(n) = # of possible cuboids or cuboid wraps that contain n cubes in one of the layers (so C(n) > 1)
+
+So given example, there are 10 cuboid layers which have 154 cubes in them
+
+Naive methods:
+generate combinations of cuboids up to the size,
+upper bound would be the base cuboid with the most surface area w/ a first (or minimum) *layer* equal to 154
+
+cuboid layer generation:
+given xyz
+3,2,1 -> 6 cubes
+
+add
+2*1 in x,
+3*1 in y,
+3*2 in z,   
+all doubled because each end --> +22 cubes
+
+example model after layer (m = original on the side)
+mx+2(my+mz), my+2(mx+mz), mz+2*(mx+my) :: 2+6,3+8,6+10 :: surface area per side
+
+
+OR BY ORDER, x takes precedence
+2,3,6    outermost
+6,8-2,10-10    inner (subs because earlier dimension handled)
+
+= 2[2+3+6] + 2*[6+6+0] = 22 + 24 = 46
+
+example modal
+
+

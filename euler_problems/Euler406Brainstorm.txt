@@ -1,0 +1,37 @@
+
+
+3,0,5,2,4
+1,2,3,4,5
+
+n,a,b
+5,2,3
+
+(a/(a+b))*5 = 2* (no cost)
+
+left --> (left current cost)
+right --> (a/(a+b))*(5-2*) = 1.2 --> 2 + 2* = 4* (right current cost)
+	left --> (left current cost)
+	right --> (right current cost)
+	
+
+
+
+
+
+closest number so the proportions on either side match a | b 
+repeat for each side via dfs or bfs, finish the entire tree
+
+store cost for each number
+take max of ^
+
+
+function(c,n0,n,k,a,b) recursive
+function(0,1,5,2,2,3) --> start of the one
+
+
+but could you cheese it, by just going down the longest path
+but how do you know which path is the longest
+it should be by going to the more costly side each time (wrong)
+
+
+
