@@ -108,14 +108,11 @@ class Puzzle:
         loc = np.where(self.cache[1] == 0)
         self.place_num(loc[0][0],loc[1][0],loc[2][0]+1,1)
 
-        # fill in 6 rounds
-        self.do_round(1)
-        self.do_round(1)
-        self.do_round(1)
-        self.do_round(1)
-        self.do_round(1)
-        self.do_round(1)
-        
+        # fill in until convergence
+        pre_solved = -1
+        while(self.solved[1] != pre_solved and self.solved[1] < 81):
+            pre_solved = self.solved[1]
+            self.do_round(1)
 
         # check for -9
         # if exists learn from attempt
