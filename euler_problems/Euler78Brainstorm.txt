@@ -1,0 +1,199 @@
+
+p(4) = 5
+
+xxxx -> 2 add on add off
+xxx x -> 2 add on add off
+xx xx -> 1 add off
+xx x x -> 1 add off
+x x x x -> 1 add off
+
+spaces-count
+0-1
+1-2
+2-1
+3-1
+
+
+p(5) = 7
+xxxxx
+xxxx x
+xxx xx
+xxx x x
+xx xx x
+xx x x x
+x x x x x
+
+Lside-count
+- First is n, always 1
+5-1
+- Second goes from (n/2,n-1), is difference from N and L (n/2 is floored?)
+4-1
+3-2
+2-2
+- Third goes from (1,n/2)
+1-1
+
+spaces-count
+0-1
+1-2
+2-2
+3-1
+4-1
+
+
+p(6) = 9
+xxxxxx
+xxxxx x
+xxxx xx
+xxxx x x
+xxx xxx
+xxx xx x
+xxx x x x
+xx x x x x
+x x x x x x
+
+
+Lside-count
+- First is n, always 1
+6-1
+- Second goes from (n/2,n-1), is difference from N and L
+5-1
+4-2
+3-3
+- Third goes from (1,n/2)
+2-1
+1-1
+
+spaces-count
+0-1
+1-3
+2-2
+3-1
+4-1
+5-1
+
+
+p(7) = 15
+xxxxxxx
+xxxxxx x
+xxxxx xx
+xxxxx x x
+xxxx xxx
+xxxx xx x
+xxxx x x x
+xxx xxx x
+xxx xx xx
+xxx xx x x
+xxx x x x x
+xx xx xx x
+xx xx x x x
+xx x x x x x
+x x x x x x x
+
+Lside-count
+- First is n, always 1
+7-1
+- Second goes from (n/2,n-1), is difference from N and L, if odd, treat n as n-1 on n/2
+6-1
+5-2
+4-3
+3-3
+- Third goes from (1,n/2)
+2-1
+1-1
+
+
+
+given n:
+a = n // 2
+
+sum of 1 for range(1,a)
++
+if odd:
+	(n-1)-a
+else:
+	n-a
++
+sum of n-i for i in range(a+1,n)
++
+1
+
+
+
+p(8) = 
+xxxxxxxx
+xxxxxxx x
+xxxxxx xx
+xxxxxx x x
+xxxxx xxx
+xxxxx xx x
+xxxxx x x x
+xxxx xxxx
+xxxx xxx x
+xxxx xx xx
+xxxx xx x x
+xxxx x x x x
+xxx xxx xx
+xxx xxx x x
+xxx xx xx x
+xxx xx x x x
+xxx x x x x x
+xx xx xx xx
+xx xx xx x x
+xx xx x x x x
+xx x x x x x x
+x x x x x x x x
+
+try recursive dynamic with function f(a,b) where a is # to the left of first break and b is to the right
+right *consecutive* number always has to be smaller than the left
+f(8,0) = 1
+f(7,1) = 1
+f(6,2) = 2
+        plus one for no split
+f(5,3) = 3 = 1 + f(2,1) + f(1,2)
+f(5,4) = 5  = 1
+f(4,4) = 5 = 1 + f(3,1) + f(2,2) + f(1,3)
+                 recursive a, must be less than or eq to previous a
+f(3,5) = 5 = f(3,2) + f(2,3) + f(1,4)
+
+write f function that takes(a,b), a must be nonzero 
+write f_mat matrix that caches values with axis a,b, f refers to this unless base case or unfilled value
+
+def f(a,b):
+	if f_mat[a,b] != 0:
+		return f_mat[a,b]
+	
+	if b == 0 or b == 1:
+		f_mat[a,b] = 1
+		return 1
+
+	if a > b:
+		f_mat[a,b] = f(a,a)
+		return f_mat[a,b]
+
+	sum = 0
+	x = 0
+	y = 0
+	if a == b:
+		sum += 1
+		x = b-1
+		y = 1
+	else:
+		x = a
+		y = b-a
+	
+	while x > 1:
+		sum += f(x,y)
+		x -= 1
+		y += 1
+	
+
+	f_mat[a,b] = sum
+	return sum
+
+
+
+
+
+
+
