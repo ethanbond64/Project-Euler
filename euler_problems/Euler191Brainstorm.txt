@@ -1,0 +1,235 @@
+A
+AA
+O
+O+
+L
+
+
+Range of L (0,1)
+Range of A (0,20)
+Range of O (9,30)
+
+for A in range(A,20)
+   // for L in range(0,1)
+	O = 30-A
+	
+	How many ways to arrange(O,A,L)
+	break A into token sets (L and O always single tokens) -- ORDER MATTERS HERE, (token lengths (1or2) might not matter?) ?SO just n tokens for the next step, but order matters? -> Cachable
+
+	A = 8
+	AA AA AA AA
+	AA AA AA A A
+	AA AA A A A A
+	...
+
+	for each set of A tokens, find the # of ways to put O in the gaps 
+	^
+	multiply above for/sum by quantity O, as each O in the string could be replaced by an L, so for each possibillity, the are O number of other possibilities
+
+
+
+fill_cache = np.zeros((31,16),int)-1
+
+for A in range(0,21):
+	
+	O = 30-A
+
+	# Find # of possible A token seqences, and save the # of joined/single tokens from each sequence into an array
+	sequences = [..]
+	
+	for each sequence in sequences:
+		# Find the # of possible ways to fill the gaps of these tokens
+		n_ways = fill_cache[O,sequence]
+		if n_ways == -1:
+			n_ways = fill(sequence)
+			fill_cache[O,seqeunce] = n_Ways
+		
+		# Account for possible L values in each location of O for each sequence
+		n_ways *= O
+
+
+
+get sequences from n 
+they start from ceil(n/2)
+and go until 15?
+
+2
+AA
+A A
+
+3 length 3
+AAAx
+AA A
+A AA
+A A A
+
+4 => length 5
+AAAAx
+AAA Ax
+A AAAx
+
+AA AA => 2
+
+AA A A => 3
+A AA A => 3
+A A AA => 3
+
+A A A A  => 4
+
+
+5 => length 8
+AA AA A => 3
+AA A AA => 3
+A AA AA => 3
+
+AA A A A => 4
+A AA A A => 4
+A A AA A => 4
+A A A AA => 4
+
+A A A A A => 5
+
+6=>
+
+AA AA AA => 3
+x=6-3
+i choose x = # of sequnces of len i
+3 choose 3 = 1
+
+AA AA A A => 4
+AA A AA A => 4
+AA A A AA => 4
+A AA AA A => 4
+A AA A AA => 4
+A A AA AA => 4
+x=6-4
+i choose x = # of sequnces of len i
+4 choose 2 = 6
+
+AA A A A A => 5
+A AA A A A => 5
+A A AA A A => 5
+A A A AA A => 5
+A A A A AA => 5
+x=6-5
+i choose x = # of sequnces of len i
+5 choose 1 = 5
+
+A A A A A A => 6
+x=6-6
+i choose x = # of sequnces of len i
+6 choose 0 = 1
+
+
+19 -> 175 sequences
+
+10 tokens -> 10 choose 1
+AA AA AA AA AA AA AA AA AA A 
+AA AA AA AA AA AA AA AA A AA 
+AA AA AA AA AA AA AA A AA AA 
+AA AA AA AA AA AA A AA AA AA 
+AA AA AA AA AA A AA AA AA AA 
+AA AA AA AA A AA AA AA AA AA 
+AA AA AA A AA AA AA AA AA AA 
+AA AA A AA AA AA AA AA AA AA 
+AA A AA AA AA AA AA AA AA AA 
+A AA AA AA AA AA AA AA AA AA
+
+
+11 tokens 
+19-11 = 8 db tokens
+11-8 = 3 single tokens
+
+11 choose 3 => 165
+3 single as
+a a a d d d d d d d d
+3 choose 
+
+
+
+12 tokens 
+
+19-12 = 7 db tokens
+12-7 = 5 single tokens
+
+12C5
+
+
+AOAAOAAOAAOAAOAAOAAOAAOAOAOAOA 
+
+AOAAOAAOAAOAAOAAOAOAOAOAOAOAOA 
+
+
+the CHOOSE is THIS!!
+i tokens
+k single tokens
+choose(i,k)
+
+
+
+practice 5 choose 2 is 10
+
+
+o o x x x 
+o x o x x
+o x x o x
+o x x x o
+x o o x x
+x o x o x
+x o x x o
+x x o o x
+x x o x o 
+x x x o o
+
+
+how to choose b?
+b is maximum number of tokens in a sequences given N A values
+b = 30-n + 1
+if n is 20 b is 11 (30-n=10  10 == 11-1) no way around it OAAOAA or AAO AAO or AOAAOAAOAAOAAOAAOAAOAAOAAOAAOA
+if n is 19 b is 12 (30-n=11, 11 == 12-1)
+if n is 18 b is 13 (30-n=12, 12 == 13-1)
+
+
+
+
+def get_sequences(n):
+	
+	sequences = []
+	
+	a = ceil(n/2)
+	b = ? for n = 20 b should be 11, for n = 13 b should be 13, for n = 15 b should be 15
+	if n > 15:
+		b = 30 - n+1 
+	else:
+		b = n
+
+	for i in range(a,b+1):
+		dbls = n-i
+		singles = i-dbls
+		
+		sequences = sequences + [i]*choose(i,singles)
+
+
+
+
+
+#####################################
+
+
+designing the fill function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
