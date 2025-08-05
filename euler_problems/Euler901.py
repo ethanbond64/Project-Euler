@@ -12,8 +12,8 @@ def probability_water_in_bounds(lower_bound: float, upper_bound: float):
         print(lower_bound, upper_bound)
         raise Exception("Invalid bounds")
     
-    lower_result = math.exp(-lower_bound) - 1
-    upper_result = math.exp(-upper_bound) - 1
+    lower_result = math.exp(-lower_bound)
+    upper_result = math.exp(-upper_bound)
 
     return lower_result - upper_result
 
